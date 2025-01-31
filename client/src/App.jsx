@@ -8,6 +8,11 @@ import { Contact } from "./pages/Contact";
 import { Navbar } from "./Components/Navbar";
 import { Logout } from "./pages/Logout";
 import { Error } from "./Error";
+import { AdminLayout } from "./Components/layouts/Admin-Layout";
+import { AdminContacts } from "./pages/Admin-Contacts";
+import { AdminUsers } from "./pages/Admin-Users";
+import { AdminUpdate } from "./pages/Admin-Update";
+import { Footer } from "./Components/Footer";
 
 const App = () => {
   return (
@@ -23,7 +28,13 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout/>}/>
           <Route path="*" element={<Error/>}/>
+          <Route path="/admin" element = {<AdminLayout/>}>
+          <Route path ="users" element={<AdminUsers/>}/>
+            <Route path ="contacts" element={<AdminContacts/>}/>
+            <Route path="/admin/Users/update/:id" element={<AdminUpdate />} />
+          </Route>
         </Routes>
+        <Footer/>
       </BrowserRouter>
     </>
   );

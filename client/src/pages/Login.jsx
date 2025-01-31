@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
+import { toast} from 'react-toastify';
+
 
 export const Login = () => {
     const [user, setUser] = useState({
@@ -34,14 +36,17 @@ export const Login = () => {
                 body: JSON.stringify(user),
             });
 
+            const res_data = await response.json();
+
             if (response.ok) {
-                alert("Login successful");
-                const res_data = await response.json();
+                /*alert("Login successful");*/
+                
                 storeTokenInLS(res_data.token);
                 setUser({ email: "", password: "", });
+                toast.success("Login successful");
                 navigate("/")
             } else {
-                alert("invalid credentials");
+                toast.error(res_data.extraDetails ? res_data.extraDetails : res_data.message);
                 console.log("invalid credentials");
             }
 
